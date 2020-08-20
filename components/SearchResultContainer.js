@@ -48,20 +48,27 @@ class SearchResultContainer extends Component {
     handleFilterSubmit = e => {
         e.preventDefault();
         if(this.state.filtered === false) {
-            const col = this.state.column;
-            const text = this.state.search;
-            const resultsCopy = [...this.state.results];
-            const filteredResults = resultsCopy.filter( result => result.name[col].indexOf(text) >= 0);
-            
-            this.setState( {
-                search: "",
-                column: "",
-                filtered: true,
-                filteredResults: filteredResults,
-                filterButtonName: "Filtered"
-            });
+            if(this.state.column === "" || this.state.search ==="") {
+                alert("Please choose a column and input search text");
+            } else {
+                const col = this.state.column;
+                const text = this.state.search;
+                const resultsCopy = [...this.state.results];
+                const filteredResults = resultsCopy.filter( result => result.name[col].indexOf(text) >= 0);
+                
+                this.setState( {
+                    search: "",
+                    column: "",
+                    filtered: true,
+                    filteredResults: filteredResults,
+                    filterButtonName: "Filtered"
+                });
+            }
         } else {
-            this.setState({filtered: false});
+            this.setState({
+                filtered: false,
+                filterButtonName: "Filter"
+            });
         }
     }
 
