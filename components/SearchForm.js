@@ -1,6 +1,10 @@
 import React from "react";
 
 function SearchForm(props) {
+    const col = props.column.length > 0 
+        ? props.column[0].toUpperCase() + props.column.slice(1) + " Name Filter"
+        :  "Please choose a column" ;
+
     return (
         <form>
             <div className="form-row">
@@ -19,7 +23,7 @@ function SearchForm(props) {
                 </div>
                 <div className="col-auto">
                     <input 
-                        placeholder="Last Name Filter"
+                        placeholder={col}
                         type="text"
                         className="form-control"
                         id="search"
@@ -32,7 +36,7 @@ function SearchForm(props) {
                     <button 
                         type="submit"
                         className="btn btn-primary mb-2"
-                        onClick={props.handleFilterSubmit}
+                        onClick={props.handleFormSubmit}
                     >Filter</button>
                 </div>
             </div>

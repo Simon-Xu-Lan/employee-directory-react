@@ -47,11 +47,11 @@ class SearchResultContainer extends Component {
         const col = this.state.column;
         const text = this.state.search;
         const resultsCopy = [...this.state.results];
-        // const filteredResults = resultsCopy.filter( result => result.name[col].indexOf(text) >= 0);
+        const filteredResults = resultsCopy.filter( result => result.name[col].indexOf(text) >= 0);
         console.log("52")
         this.setState( {
             search: "",
-            results: []
+            results: filteredResults
         })
     }
 
@@ -87,6 +87,7 @@ class SearchResultContainer extends Component {
             <div>
                 <SearchForm 
                     search={this.state.search}
+                    column={this.state.column}
                     handleInputChange={this.handleInputChange}
                     handleFormSubmit={this.handleFilterSubmit}
                     handleSelectChange={this.handleSelectChange}
