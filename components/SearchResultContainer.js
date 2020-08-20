@@ -9,6 +9,9 @@ class SearchResultContainer extends Component {
         column: "",
         search: "",
         results: [],
+        filteredResults: [],
+        filtered: false,
+        filterButtonName: "Filter"
     };
 
     // use componentDidMount to initialize the this.state.results
@@ -44,15 +47,22 @@ class SearchResultContainer extends Component {
 
     handleFilterSubmit = e => {
         e.preventDefault();
-        const col = this.state.column;
-        const text = this.state.search;
-        const resultsCopy = [...this.state.results];
-        const filteredResults = resultsCopy.filter( result => result.name[col].indexOf(text) >= 0);
-        console.log("52")
-        this.setState( {
-            search: "",
-            results: filteredResults
-        })
+        if(this.state.filtered === false) {
+            const col = this.state.column;
+            const text = this.state.search;
+            const resultsCopy = [...this.state.results];
+            const filteredResults = resultsCopy.filter( result => result.name[col].indexOf(text) >= 0);
+            
+            this.setState( {
+                search: "",
+                column: "",
+                filtered: true,
+                filteredResults: filteredResults,
+                filterButtonName: "Filtered"
+            });
+        } else {
+            this.setState({filtered: false});
+        }
     }
 
     sortCol = (col ) => {
@@ -88,12 +98,13 @@ class SearchResultContainer extends Component {
                 <SearchForm 
                     search={this.state.search}
                     column={this.state.column}
+                    filterButtonName={this.state.filterButtonName}
                     handleInputChange={this.handleInputChange}
-                    handleFormSubmit={this.handleFilterSubmit}
+                    handleFilterSubmit={this.handleFilterSubmit}
                     handleSelectChange={this.handleSelectChange}
                 />
                 <ResultList 
-                    results={this.state.results}
+                    results={this.state.filtered ? this.state.filteredResults : this.state.results}
                     handleColHeadClick={this.handleColHeadClick}
                 />
             </div>

@@ -36,8 +36,8 @@ function SearchForm(props) {
                     <button 
                         type="submit"
                         className="btn btn-primary mb-2"
-                        onClick={props.handleFormSubmit}
-                    >Filter</button>
+                        onClick={props.handleFilterSubmit}
+                    >{props.filterButtonName}</button>
                 </div>
             </div>
         </form>
